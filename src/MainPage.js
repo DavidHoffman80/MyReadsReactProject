@@ -14,8 +14,8 @@ class MainPage extends Component {
               <h2 className='bookshelf-title'>Currently Reading</h2>
               <div className='bookshelf-books'>
                 <ol className='books-grid'>
-                  {this.props.apiBooks.filter(book => book.shelf === 'currentlyReading').map((book, index) => (
-                    <li key={index}>
+                  {this.props.apiBooks.filter(book => book.shelf === 'currentlyReading').map((book) => (
+                    <li key={book.id}>
                       <div className='book'>
                         <div className='book-top'>
                           <div className='book-cover' style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})`}}></div>
@@ -47,7 +47,7 @@ class MainPage extends Component {
                         <div className='book-top'>
                           <div className='book-cover' style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})`}}></div>
                           <div className='book-shelf-changer'>
-                            <select>
+                            <select onChange={(event) => this.props.moveBook(book, event.target.value)}>
                               <option value="move" disabled>Move to...</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>
@@ -74,7 +74,7 @@ class MainPage extends Component {
                         <div className='book-top'>
                           <div className='book-cover' style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})`}}></div>
                           <div className='book-shelf-changer'>
-                            <select>
+                            <select onChange={(event) => this.props.moveBook(book, event.target.value)}>
                               <option value="move" disabled>Move to...</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>
@@ -105,48 +105,3 @@ class MainPage extends Component {
 }
 
 export default MainPage
-
-
-{/* <div className='MainPage'>
-<header className='MyReads'>
-  <h1 className='MyReadsTitle'>MyReads</h1>
-  <nav className='nav'>
-    <Link
-      to='/search'
-    >Search</Link>
-  </nav>
-</header>
-<section className='CurrentlyReading'>
-  <h2 className='CurrentlyReadingTitle ReadingTitle'>Currently Reading</h2>
-  <ol className='CurrentlyReadingBooks'>
-    {this.props.apiBooks.filter(book => book.shelf === 'currentlyReading').map((book, index) => (
-      <li className='CurrentlyReadingBook' key={index}>
-        <img src={book.imageLinks.smallThumbnail} alt={book.title}></img>
-        <h3 className='bookTitle'>{book.title}</h3>
-      </li>
-    ))}
-  </ol>
-</section>
-<section className='WantToRead'>
-  <h2 className='WantToReadTitle ReadingTitle'>Want to Read</h2>
-  <ol className='WantToReadBooks'>
-    {this.props.apiBooks.filter(book => book.shelf === 'wantToRead').map((book, index) => (
-      <li className='WantToReadBook' key={index}>
-        <img src={book.imageLinks.smallThumbnail} alt={book.title}></img>
-        <h3 className='bookTitle'>{book.title}</h3>
-      </li>
-    ))}
-  </ol>
-</section>
-<section className='Read'>
-  <h2 className='ReadingTitle'>Read</h2>
-  <ol className='ReadBooks'>
-    {this.props.apiBooks.filter(book => book.shelf === 'read').map((book, index) => (
-      <li className='ReadBook' key={index}>
-        <img src={book.imageLinks.smallThumbnail} alt={book.title}></img>
-        <h3 className='bookTitle'>{book.title}</h3>
-      </li>
-    ))}
-  </ol>
-</section>
-</div> */}
