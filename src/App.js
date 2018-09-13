@@ -12,25 +12,30 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.updateState()
+    BooksAPI.getAll().then((booksFromAPI) => {
+      this.setState({ booksFromAPI })
+      console.log('Component mounted and state updated: ', this.state.booksFromAPI)
+    }).catch((error) => {
+      console.log(error)
+    })
   }
 
   updateState = () => {
-    BooksAPI.getAll().then((books) => {
-      this.setState({ booksFromAPI: books })
-      console.log(this.state.booksFromAPI)
-    }).catch(error => {
+    BooksAPI.getAll().then((booksFromAPI) => {
+      this.setState({ booksFromAPI })
+      console.log('State is updated: ', this.state.booksFromAPI)
+    }).catch((error) => {
       console.log(error)
     })
   }
 
   moveBook = (book, shelf) => {
     BooksAPI.update(book, shelf).then((responce) => {
-      console.log(responce)
-      this.updateState()
-    }).catch(error => {
+      console.log('responce: ', responce)
+    }).catch((error) => {
       console.log(error)
     })
+    this.updateState()
   }
 
   render() {
