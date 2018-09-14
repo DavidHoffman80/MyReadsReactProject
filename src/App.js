@@ -29,13 +29,13 @@ class App extends Component {
     })
   }
 
-  moveBook = (book, shelf) => {
+  updateBookShelf = (book, shelf) => {
     BooksAPI.update(book, shelf).then((responce) => {
       console.log('responce: ', responce)
+      this.updateState()
     }).catch((error) => {
       console.log(error)
     })
-    this.updateState()
   }
 
   render() {
@@ -44,7 +44,7 @@ class App extends Component {
         <Route exact path='/' render={() => (
           <MainPage
             apiBooks={this.state.booksFromAPI}
-            moveBook={this.moveBook}
+            moveBook={this.updateBookShelf}
           />
         )}/>
         <Route path='/search' component={SearchPage}/>
