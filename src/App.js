@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
+import serializeForm from 'form-serialize'
 import MainPage from './MainPage'
 import SearchPage from './SearchPage'
 import * as BooksAPI from './BooksAPI'
@@ -38,6 +39,12 @@ class App extends Component {
     })
   }
 
+  serializeSearchForm = (e) => {
+    e.preventDefault()
+    const values = serializeForm(e.target, { hash: true })
+    console.log(values)
+  }
+
   render() {
     return (
       <div className='App'>
@@ -47,7 +54,12 @@ class App extends Component {
             moveBook={this.updateBookShelf}
           />
         )}/>
-        <Route path='/search' component={SearchPage}/>
+        <Route
+          path='/search' render={() => (
+            <SearchPage
+              serializeSearchForm={this.serializeSearchForm}
+            />
+          )}/>
       </div>
     );
   }

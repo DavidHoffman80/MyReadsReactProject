@@ -96,7 +96,6 @@ class MainPage extends Component {
         <div className="open-search">
           <Link
             to='/search'
-            onClick={() => this.setState({ showSearchPage: true })}
           >Add a book</Link>
         </div>
       </div>
