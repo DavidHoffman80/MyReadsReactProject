@@ -15,7 +15,6 @@ class App extends Component {
   componentDidMount() {
     BooksAPI.getAll().then((booksFromAPI) => {
       this.setState({ booksFromAPI })
-      console.log('Component mounted and state updated: ', this.state.booksFromAPI)
     }).catch((error) => {
       console.log(error)
     })
@@ -24,7 +23,6 @@ class App extends Component {
   updateState = () => {
     BooksAPI.getAll().then((booksFromAPI) => {
       this.setState({ booksFromAPI })
-      console.log('State is updated: ', this.state.booksFromAPI)
     }).catch((error) => {
       console.log(error)
     })
@@ -32,7 +30,6 @@ class App extends Component {
 
   updateBookShelf = (book, shelf) => {
     BooksAPI.update(book, shelf).then((responce) => {
-      console.log('responce: ', responce)
       this.updateState()
     }).catch((error) => {
       console.log(error)
@@ -40,8 +37,7 @@ class App extends Component {
   }
 
   updateBookShelfFromSearchPage = (book, shelf) => {
-    BooksAPI.update(book, shelf).then((responce) => {
-      console.log('responce 2: ', responce)
+    BooksAPI.update(book, shelf).then(() => {
       this.updateState()
     }).catch((error) => {
       console.log(error)
@@ -62,6 +58,7 @@ class App extends Component {
           path='/search' render={() => (
             <SearchPage
               moveBook={this.updateBookShelfFromSearchPage}
+              apiBooks={this.state.booksFromAPI}
             />
         )}/>
       </div>
