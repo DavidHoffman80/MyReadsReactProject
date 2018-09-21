@@ -11,18 +11,28 @@ class SearchPage extends Component {
   }
 
   searchForBooks = (event) => {
+    // make sure that the user entered a search
     if(event.target.value.length > 0) {
       BooksAPI.search(event.target.value).then((responce) => {
+        // if the responce has an 'error' property
+        // set the bookQueryResuls state to undefined
+        // so that the user knows there are no books with that query
         if(responce.hasOwnProperty('error')) {
           this.setState({ bookQueryResults: undefined })
         } else {
+          // get the shelved books
           let shelvedBooks = this.props.apiBooks
 
+          // loop through the books from the query and
+          // set the shelf to none
           for(let book of responce) {
             book.shelf = 'none'
           }
           for(let book of responce) {
+            // loop through the shelved books
             for(let shelvedBook of shelvedBooks) {
+              // if the shelvedbook.id is the same as the
+              // queried book.id then set the .shelf
               if(shelvedBook.id === book.id) {
                 book.shelf = shelvedBook.shelf
               }
@@ -38,12 +48,16 @@ class SearchPage extends Component {
     }
   }
 
+  // capture the value of the input field
+  // set the query state to the value of
+  // the input field and then call searchForBooks()
   updateQuery = (event) => {
     let query = event.target.value
     this.setState({ query })
     this.searchForBooks(event)    
   }
 
+  // prevent submitting the form
   handleSubmit = (e) => {
     e.preventDefault()
   }
